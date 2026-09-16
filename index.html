@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Privacy-aware SHA-256 document verification portfolio demo.">
+  <title>Document Verification & Trust System</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="./">TRUST<span>DOC</span></a>
+    <nav><a href="#demo">Live Demo</a><a href="#architecture">Architecture</a><a href="https://github.com/Billalhossainshishir/document-verification-trust-system" target="_blank">GitHub</a></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">PORTFOLIO PROJECT 04 · SECURITY / TRUST</p>
+        <h1>Verify document integrity without storing the document.</h1>
+        <p class="lede">Register a SHA-256 fingerprint, verify exact copies, detect modified files, record an audit trail and demonstrate signed verification receipts.</p>
+        <div class="actions"><a class="btn primary" href="#demo">Try live demo</a><button class="btn" id="downloadSample">Download sample document</button></div>
+        <div class="chips"><span>SHA-256</span><span>Audit trail</span><span>Ed25519 receipts</span><span>QR verification</span></div>
+      </div>
+      <aside class="card flow">
+        <p class="eyebrow">RECRUITER FLOW</p>
+        <ol><li>Register sample document</li><li>Verify the same file → VERIFIED</li><li>Try modified file → FAILED</li><li>Inspect receipt + audit log</li></ol>
+        <p class="muted small">No login. Public demo runs entirely in the browser.</p>
+      </aside>
+    </section>
+    <section class="notice"><b>Transparent demo mode:</b> GitHub Pages uses Web Crypto + localStorage. The repository contains the real FastAPI, SQLAlchemy, PostgreSQL/Docker, QR, PDF and Ed25519 implementation.</section>
+
+    <section id="demo" class="grid">
+      <article class="card">
+        <div class="cardhead"><div><p class="eyebrow">STEP 1</p><h2>Register document</h2></div><span id="registerBadge" class="badge">Waiting</span></div>
+        <label class="drop"><input id="registerFile" type="file"><b>Choose a document</b><small>Use the sample file for the guided flow.</small></label>
+        <div class="two"><label>Document type<input id="docType" value="Certificate"></label><label>Registered by<input id="registeredBy" value="Portfolio Demo"></label></div>
+        <button id="registerBtn" class="btn primary full">Register fingerprint</button>
+        <div id="registerOut" class="result hidden"></div>
+      </article>
+      <article class="card">
+        <div class="cardhead"><div><p class="eyebrow">STEP 2</p><h2>Verify a copy</h2></div><span id="verifyBadge" class="badge">Waiting</span></div>
+        <label>Verification ID<input id="verificationId" placeholder="VER-..."></label>
+        <label class="drop"><input id="verifyFile" type="file"><b>Choose candidate document</b><small>Its SHA-256 is calculated locally.</small></label>
+        <div class="actions"><button id="verifyBtn" class="btn primary">Verify</button><button id="downloadModified" class="btn danger">Modified sample</button></div>
+        <div id="verifyOut" class="result hidden"></div>
+      </article>
+    </section>
+
+    <section class="metrics">
+      <div><b id="registeredMetric">0</b><span>Registered</span></div>
+      <div><b id="successMetric">0</b><span>Verified</span></div>
+      <div><b id="failedMetric">0</b><span>Failed</span></div>
+      <div><b id="receiptMetric">0</b><span>Receipts</span></div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="cardhead"><div><p class="eyebrow">AUDITABILITY</p><h2>Audit trail</h2></div><button id="resetBtn" class="linkbtn">Reset</button></div>
+        <div id="auditList"><p class="muted">No activity yet.</p></div>
+      </article>
+      <article class="card">
+        <p class="eyebrow">LATEST RECEIPT</p><h2>Verification evidence</h2>
+        <div id="receiptBody"><p class="muted">A receipt appears after verification.</p></div>
+      </article>
+    </section>
+
+    <section id="architecture" class="card architecture">
+      <p class="eyebrow">FULL ENGINEERING IMPLEMENTATION</p><h2>Repository architecture</h2>
+      <div class="pipeline"><span>Upload</span><i>→</i><span>SHA-256</span><i>→</i><span>Fingerprint DB</span><i>→</i><span>Verification</span><i>→</i><span>Audit</span><i>→</i><span>Signed receipt</span></div>
+      <div class="features">
+        <div><b>FastAPI</b><p>Registration, verification, analytics and public APIs.</p></div>
+        <div><b>PostgreSQL ready</b><p>SQLAlchemy + Docker Compose.</p></div>
+        <div><b>Privacy aware</b><p>Original file bytes are discarded after hashing.</p></div>
+        <div><b>Ed25519</b><p>Canonical receipt payloads are digitally signed.</p></div>
+        <div><b>QR + PDF</b><p>Public verification QR and downloadable receipt.</p></div>
+        <div><b>Automated tests</b><p>Pytest + GitHub Actions.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer><span>Billal Hossain Shishir · 2026</span><span>Sample/non-sensitive files only</span></footer>
+</div>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
