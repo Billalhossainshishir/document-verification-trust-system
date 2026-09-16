@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: document_trust
+      POSTGRES_USER: trust
+      POSTGRES_PASSWORD: trust
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U trust -d document_trust"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://trust:trust@db:5432/document_trust
+      SIGNING_KEY_FILE: /data/receipt_signing_key.pem
+      PUBLIC_BASE_URL: https://billalhossainshishir.github.io/document-verification-trust-system
+      CORS_ORIGINS: "*"
+    ports: ["8000:8000"]
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - signing_data:/data
+  frontend:
+    image: nginx:1.27-alpine
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    ports: ["8080:80"]
+    depends_on: [api]
+volumes:
+  postgres_data:
+  signing_data:
