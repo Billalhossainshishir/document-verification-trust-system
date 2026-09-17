@@ -33,7 +33,7 @@
     <section id="demo" class="grid">
       <article class="card">
         <div class="cardhead"><div><p class="eyebrow">STEP 1</p><h2>Register document</h2></div><span id="registerBadge" class="badge">Waiting</span></div>
-        <label class="drop"><input id="registerFile" type="file"><b>Choose a document</b><small>Use the sample file for the guided flow.</small></label>
+        <label class="drop"><input id="registerFile" type="file" aria-label="Choose a document to register"><b>Choose a document</b><small>Use the sample file for the guided flow.</small></label>
         <div class="two"><label>Document type<input id="docType" value="Certificate"></label><label>Registered by<input id="registeredBy" value="Portfolio Demo"></label></div>
         <button id="registerBtn" class="btn primary full">Register fingerprint</button>
         <div id="registerOut" class="result hidden"></div>
@@ -41,7 +41,7 @@
       <article class="card">
         <div class="cardhead"><div><p class="eyebrow">STEP 2</p><h2>Verify a copy</h2></div><span id="verifyBadge" class="badge">Waiting</span></div>
         <label>Verification ID<input id="verificationId" placeholder="VER-..."></label>
-        <label class="drop"><input id="verifyFile" type="file"><b>Choose candidate document</b><small>Its SHA-256 is calculated locally.</small></label>
+        <label class="drop"><input id="verifyFile" type="file" aria-label="Choose a candidate document to verify"><b>Choose candidate document</b><small>Its SHA-256 is calculated locally.</small></label>
         <div class="actions"><button id="verifyBtn" class="btn primary">Verify</button><button id="downloadModified" class="btn danger">Modified sample</button></div>
         <div id="verifyOut" class="result hidden"></div>
       </article>
