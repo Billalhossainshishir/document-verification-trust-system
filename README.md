@@ -23,6 +23,11 @@ Read the [reviewer guide](docs/REVIEWER_GUIDE.md) for execution modes, reproduci
 
 The system registers a document fingerprint using SHA-256, verifies future copies without retaining the original document bytes, records an audit trail, creates an Ed25519-signed verification receipt, and exposes public verification metadata without exposing confidential document contents.
 
+
+## Project preview
+
+![Document Verification and Trust System live demo overview](screenshots/document-verification-overview.jpg)
+
 ## Portfolio strategy
 
 This repository deliberately contains two experiences, using the same strategy as Project 3.
