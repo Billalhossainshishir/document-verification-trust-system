@@ -1,6 +1,8 @@
 # Document Verification & Trust System
 
-A recruiter-facing portfolio project demonstrating security engineering, deterministic document integrity checks, privacy-aware data handling, auditability, signed receipts, backend APIs and deployment discipline.
+A document-integrity project that compares a candidate file with a registered SHA-256 fingerprint. The backend records verification attempts and signs receipt payloads with Ed25519 without storing the uploaded document body.
+
+Read the [reviewer guide](docs/REVIEWER_GUIDE.md) for execution modes, reproducible setup, architecture, verification steps and known limitations.
 
 The system registers a document fingerprint using SHA-256, verifies future copies without retaining the original document bytes, records an audit trail, creates an Ed25519-signed verification receipt, and exposes public verification metadata without exposing confidential document contents.
 
@@ -63,11 +65,11 @@ The source of truth is deterministic cryptographic comparison: registered file b
 
 Registration reads uploaded bytes in memory, calculates SHA-256, stores selected metadata plus the fingerprint, and discards the file bytes. The application database does not store the original uploaded document.
 
-## Signed receipts
+## Backend signed receipts
 
 Every verification attempt creates a canonical receipt payload containing the Verification ID, Document ID, filenames, status, timestamps and both SHA-256 values.
 
-The backend signs that canonical payload using Ed25519. The signing private key is generated outside source control and persisted at the configured signing-key path.
+The browser demo downloads unsigned example JSON. The backend signs its canonical payload using Ed25519. The signing private key is generated outside source control and persisted at the configured signing-key path.
 
 ## Repository structure
 
@@ -98,6 +100,10 @@ The backend signs that canonical payload using Ed25519. The signing private key 
 | GET | /api/audit | audit trail |
 | GET | /api/analytics | demo metrics |
 | POST | /api/reset | clear controlled demo data |
+
+## Known public-verification limitation
+
+The default backend QR URL opens a static page that only reads browser localStorage. It does not fetch backend records and is not a working cross-device lookup. Use the backend public-verification API for those records; see the reviewer guide for the missing integration.
 
 ## Run locally
 

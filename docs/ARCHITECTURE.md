@@ -47,3 +47,9 @@ GitHub Pages cannot run Python or PostgreSQL. The root static site therefore use
 ## Trust boundary
 
 The system proves integrity relative to the originally registered fingerprint. It does not independently establish issuer identity or legal authenticity.
+
+
+
+## Current execution boundary
+
+The generated QR destination currently points to a static verify page that reads localStorage only. It cannot retrieve the backend database record. Use the public metadata API directly until a page-to-API lookup is implemented. The static demo receipt is unsigned; Ed25519 signing belongs to the backend. See [the reviewer guide](REVIEWER_GUIDE.md).
