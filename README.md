@@ -1,8 +1,25 @@
 # Document Verification & Trust System
 
+[![Tests](https://github.com/Billalhossainshishir/document-verification-trust-system/actions/workflows/tests.yml/badge.svg)](https://github.com/Billalhossainshishir/document-verification-trust-system/actions/workflows/tests.yml)
+[![GitHub Pages](https://github.com/Billalhossainshishir/document-verification-trust-system/actions/workflows/pages.yml/badge.svg)](https://github.com/Billalhossainshishir/document-verification-trust-system/actions/workflows/pages.yml)
+
 A document-integrity project that compares a candidate file with a registered SHA-256 fingerprint. The backend records verification attempts and signs receipt payloads with Ed25519 without storing the uploaded document body.
 
 Read the [reviewer guide](docs/REVIEWER_GUIDE.md) for execution modes, reproducible setup, architecture, verification steps and known limitations.
+
+## Quick recruiter view
+
+| Explore | Link |
+| --- | --- |
+| **Live demo** | https://billalhossainshishir.github.io/document-verification-trust-system/ |
+| **Reviewer guide** | [docs/REVIEWER_GUIDE.md](docs/REVIEWER_GUIDE.md) |
+| **Architecture** | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
+| **API reference** | [docs/API.md](docs/API.md) |
+| **Testing** | [docs/TESTING.md](docs/TESTING.md) |
+| **Threat model** | [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) |
+| **Case study** | [docs/CASE_STUDY.md](docs/CASE_STUDY.md) |
+
+**60-second demo:** Register sample → verify same file → confirm VERIFIED → verify modified sample → confirm FAILED → inspect audit trail and receipt.
 
 The system registers a document fingerprint using SHA-256, verifies future copies without retaining the original document bytes, records an audit trail, creates an Ed25519-signed verification receipt, and exposes public verification metadata without exposing confidential document contents.
 
@@ -153,3 +170,11 @@ Instead of pretending a static page is a deployed backend:
 - The repository proves the actual backend, database, cryptography, testing and deployment implementation.
 
 That separation is intentional and documented.
+
+## Limitations and scope
+
+- A successful SHA-256 match proves byte-level continuity with the registered fingerprint; it does not independently prove issuer identity, legal authenticity or registrar authority.
+- The GitHub Pages demo uses browser-side Web Crypto and localStorage and is not the FastAPI/PostgreSQL backend.
+- Browser-demo receipts are illustrative; the backend implementation is where canonical receipt payloads are signed with Ed25519.
+- The default backend QR target does not provide a complete cross-device browser lookup; use the public-verification API for backend records.
+- Production use would require identity/authority verification, secure key management, access control, operational monitoring and deployment hardening.
